@@ -1,0 +1,12 @@
+// 初始化 Go module
+go mod init
+
+// 引用MySQL package
+"database/sql"
+_ "github.com/go-sql-driver/mysql"
+
+// 建構程式
+ go build
+
+// 運行程式
+./myproject
