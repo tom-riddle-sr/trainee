@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"time"
+	part2 "trainee/part2"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -43,12 +44,18 @@ func main() {
 
 	fmt.Println("連線成功")
 
-	// Create(DB)
+	// part1.Create(DB)
+	// part2.Create(DB)
+	// part2.Alter(DB)
+	// part2.Insert(DB)
+	// part2.InsertMultiple(DB)
+	part2.Query(DB)
 	// Add(DB)
 	// Update(DB)
 	// Delete(DB)
 	// Query(DB)
-	transaction(DB)
+	// transaction(DB)
+	// transaction1(DB)
 }
 
 

@@ -1,4 +1,4 @@
-package main
+package delete
 
 import (
 	"database/sql"

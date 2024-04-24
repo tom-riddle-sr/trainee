@@ -1,22 +1,24 @@
-package main
+package query
 
 import (
 	"database/sql"
 	"fmt"
 )
 
+type Member struct {
+	MemberId   string
+	Status     string
+	CreateTime string
+	UpdateTime string
+}
+
 func Query(DB *sql.DB) {
-	var memberId string
-	var status string
-	var createTime string
-	var updateTime string
+	var mList Member
 
-
-
-// 單筆資料
+	// 單筆資料
 // row := DB.QueryRow("select MemberId,Status,CreateTime,UpdateTime from Member where MemberId=?", 00000001)
 // 	//Scan對應的欄位與select語法的欄位順序一致
-// if err := row.Scan(&memberId, &status,&createTime,&updateTime );err != nil {
+// if err := row.Scan(&mList.memberId, &mList.status,&mList.createTime,&mList.updateTime );err != nil {
 // 	fmt.Printf("scan failed, err:%v\n", err)
 // 	return
 // }
@@ -33,25 +35,25 @@ if err != nil {
 	return
 }
 
-var customers []map[string]string
+var memberList =[]Member{}
 
 // 一筆一筆讀取
 for rows.Next() {
-	err = rows.Scan(&memberId, &status, &updateTime, &createTime)
+	err = rows.Scan(&mList.MemberId, &mList.Status, &mList.UpdateTime, &mList.CreateTime)
 	if err != nil {
 		fmt.Printf("Scan failed,err:%v\n", err)
 		return
 	}
-	customer := map[string]string{
-		"memberId":   memberId,
-		"status":     status,
-		"createTime": createTime,
-		"updateTime": updateTime,
+	member := Member{
+    MemberId:   mList.MemberId,
+    Status:     mList.Status,
+    CreateTime: mList.CreateTime,
+    UpdateTime: mList.UpdateTime,
 }
-customers = append(customers, customer)
+memberList = append(memberList, member)
 }
 
-for _, customer := range customers {
+for _, customer := range memberList {
 	fmt.Printf("customer:%+v\n", customer)
 }
 }
