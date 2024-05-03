@@ -1,7 +1,7 @@
 package main
 
 import (
-	"trainee/fibertrainee2/database/mysql"
+	mySql "trainee/fibertrainee2/database/mysql"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -42,5 +42,5 @@ const (
 // }
 
 func main() {
-	mysql.MySql()
+	mySql.New()
 }

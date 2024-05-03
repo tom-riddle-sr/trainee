@@ -1,9 +1,8 @@
-package mysql
+package mySql
 
 import (
 	"database/sql"
 	"fmt"
-	"trainee/fibertrainee2/router"
 )
 
 const (
@@ -20,13 +19,17 @@ const (
 	numberQuantity = 6
 )
 
-func MySql() {
-	DB, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8", UserName, Password, Addr, Port, Database))
+var _db *sql.DB
+
+func New() {
+	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8", UserName, Password, Addr, Port, Database))
 	if err != nil {
 		fmt.Println("連接到mysql 失敗:", err)
 		return
 	}
 	fmt.Println("連接到mysql 成功")
+
+	_db = db
 
 	// sqlValues := []string{}
 
@@ -45,6 +48,11 @@ func MySql() {
 	// 		return
 	// }
 	// fmt.Println("插入資料成功")
-
-	router.Router(DB)
 }
+
+func GetDB() *sql.DB {
+	return _db
+}
+
+// DB大寫和_db差別?
+// 有無封裝的差別,經過封裝的變數或方法只能在同一個package中使用,不會被不知道的地方改變

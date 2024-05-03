@@ -18,3 +18,6 @@ INNER JOIN:return 滿足條件ㄉ行
 LEFT  JOIN:return 滿足左表中的所有行，以及右表中與左表匹配ㄉ行
 RIGHT JOIN:return 滿足右表中的所有行，以及左表中與右表匹配ㄉ行
 FULL  JOIN:return 所有ㄉ行，沒有匹配的NULL
+
+
+

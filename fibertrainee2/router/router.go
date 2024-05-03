@@ -2,7 +2,7 @@ package router
 
 import (
 	"database/sql"
-	"trainee/fibertrainee2/handlers/validatePayload"
+	handlers "trainee/fibertrainee2/handlers/handlers_login"
 	"trainee/fibertrainee2/middleware/jwt"
 
 	"github.com/gofiber/fiber/v2"
@@ -14,10 +14,9 @@ func Router(DB *sql.DB) {
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World!")
 	})
+	app.Post("/login", handlers.Login)
 
-	app.Post("/login", validatePayload.Login(DB))
-
-	app.Get("/logout", jwt.Jwt(), validatePayload.Logout())
+	app.Get("/logout", jwt.Jwt(), handlers.Logout)
 
 	app.Listen(":3010")
 
