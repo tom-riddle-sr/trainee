@@ -3,7 +3,7 @@ package mysql
 import (
 	"database/sql"
 	"fmt"
-	"trainee/fibertrainee2/handlers/validatePayload"
+	"trainee/fibertrainee2/router"
 )
 
 const (
@@ -46,5 +46,5 @@ func MySql() {
 	// }
 	// fmt.Println("插入資料成功")
 
-	validatePayload.ValidatePayload(DB)
+	router.Router(DB)
 }
