@@ -1,7 +1,8 @@
 package main
 
 import (
-	mySql "trainee/fibertrainee2/database/mysql"
+	"trainee/fibertrainee3/database/mysql"
+	"trainee/fibertrainee3/router"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -42,5 +43,6 @@ const (
 // }
 
 func main() {
-	mySql.New()
+	mysql.New()
+	router.Router()
 }
