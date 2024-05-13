@@ -1,0 +1,37 @@
+go get gopkg.in/go-playground/validator.v10
+
+  validate := validator.New()
+  err := validate.Struct(u1)
+
+type RegisterData struct {
+    Email    string `validate:"required,email"`
+}
+
+required:欄位必須有值，不能為空
+email:有效的電子郵件地址
+len=10:欄位的長度必須為 10
+min=5：欄位的值必須至少為 5（對於數字），或者欄位的長度必須至少為 5（對於字串）。
+max=10：欄位的值必須最多為 10（對於數字），或者欄位的長度必須最多為 10（對於字串）。
+eq=10：欄位的值必須等於 10。
+ne=10：欄位的值不能等於 10。
+gt=10：欄位的值必須大於 10。
+gte=10：欄位的值必須大於或等於 10。
+lt=10：欄位的值必須小於 10。
+lte=10：欄位的值必須小於或等於 10。
+eqfield=Password：欄位的值必須等於 Password 欄位的值。
+nefield=Password：欄位的值不能等於 Password 欄位的值。
+alphanum：欄位的值必須是字母或數字。
+numeric：欄位的值必須是數字。
+oneof=male female prefer_not_to:這個標籤表示該欄位的值必須是 "male"、"female" 或 "prefer_not_to" 中的一個
+
+
+if err != nil {
+    if errs, ok := err.(validator.ValidationErrors); ok {
+        for _, e := range errs {
+            fmt.Println("Field:", e.Field()) // 失敗的欄位名稱
+            fmt.Println("Tag:", e.Tag())     // 失敗的標籤名稱
+            fmt.Println("Value:", e.Value()) // 失敗的欄位值
+            fmt.Println("Param:", e.Param()) // 標籤的參數
+        }
+    }
+}

@@ -3,7 +3,8 @@ package jwt
 import (
 	"errors"
 	"fmt"
-	"trainee/fibertrainee3/model"
+
+	"trainee/fibertrainee3/model/entity/mysql/fibertrainee"
 
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -13,7 +14,7 @@ const (
 	Secret    = "bibibaba"
 )
 
-func GenToken(value model.AccountData, secret string) (string, error) {
+func GenToken(value fibertrainee.AccountDatum, secret string) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims.(jwt.MapClaims)["account"] = value.Account
 	tokenString, tokenErr := token.SignedString([]byte(secret))

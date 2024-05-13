@@ -1,30 +1,28 @@
 package mysql
 
 import (
-	"database/sql"
 	"fmt"
+	"trainee/fibertrainee3/config"
+
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
-const (
-	UserName = "root"
-	Password = "yile1408"
-	Addr     = "127.0.0.1"
-	Port     = 3003
-	Database = "fibertrainee"
-)
+var _db *gorm.DB
 
-var _db *sql.DB
-
-func New() {
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8",
-		UserName, Password, Addr, Port, Database))
+// Mysql版
+func New() error {
+	db, err := gorm.Open(mysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8",
+		config.UserName, config.Password, config.Addr, config.Port, config.Database)))
 	if err != nil {
 		fmt.Println("連接到mysql 失敗:", err)
-		return
+		return err
 	}
 	_db = db
+	fmt.Println("連接到mysql 成功")
+	return nil
 }
 
-func GetDB() *sql.DB {
+func GetDB() *gorm.DB {
 	return _db
 }

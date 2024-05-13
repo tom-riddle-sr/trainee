@@ -5,11 +5,20 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Package",
+      "name": "Launch server",
       "type": "go",
       "request": "launch",
       "mode": "auto",
       "program": "${workspaceFolder}"
+    },
+    {
+      "name": "Launch mysql gen",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/fibertrainee3/devTool/mysql_gorm_gen_tool.go",
     }
   ]
 }
+
+// ${workspaceFolder} 代表當前工作區ㄉ路徑
