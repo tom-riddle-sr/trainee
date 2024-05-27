@@ -19,7 +19,7 @@ func Test_auth_Login_find_account_sql_no_row(t *testing.T) {
 
 	expectErr := "查無此帳"
 
-	fakeRepo := NewFakeRepo()
+	fakeRepo := NewFakeRepo(nil, nil)
 
 	serviceAuth := ServicesAuth{
 		repo: fakeRepo,
@@ -30,10 +30,16 @@ func Test_auth_Login_find_account_sql_no_row(t *testing.T) {
 	assert.EqualError(t, actualErr, expectErr)
 }
 
-type FakeRepo struct{}
+type FakeRepo struct {
+	RedisRepo repository.IRedisRepo
+	SqlRepo   repository.ISqlRepo
+}
 
-func NewFakeRepo() repository.IRepo {
-	return &FakeRepo{}
+func NewFakeRepo(redis repository.IRedisRepo, sql repository.ISqlRepo) *FakeRepo {
+	return &FakeRepo{
+		RedisRepo: redis,
+		SqlRepo:   sql,
+	}
 }
 
 func (f *FakeRepo) Create(db *gorm.DB, value interface{}) error {

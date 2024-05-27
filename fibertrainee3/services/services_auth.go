@@ -17,10 +17,10 @@ type IServicesAuth interface {
 }
 
 type ServicesAuth struct {
-	repo repository.IRepo
+	repo *repository.Repo
 }
 
-func NewAuth(repo repository.IRepo) IServicesAuth {
+func NewAuth(repo *repository.Repo) IServicesAuth {
 	return &ServicesAuth{
 		repo: repo,
 	}
@@ -30,7 +30,7 @@ func (h *ServicesAuth) Login(inputAccountData input.CreateAccountData) (string, 
 	accountdata := fibertrainee.AccountDatum{}
 
 	//型別斷言
-	err := h.repo.Query(mysql.GetDB(), "account = ?", &accountdata, inputAccountData.Account)
+	err := h.repo.SqlRepo.Query(mysql.GetDB(), "account = ?", &accountdata, inputAccountData.Account)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return "", errors.New("查無此帳號")

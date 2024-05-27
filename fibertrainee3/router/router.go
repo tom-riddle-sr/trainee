@@ -32,13 +32,6 @@ func Router(handlers *handlers.Handlers) {
 		return c.Next()
 	})
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
-	})
-	app.Get("/panic", func(c *fiber.Ctx) error {
-		panic("這是test panic")
-	})
-
 	api1 := app.Group("/auth")
 	api1.Post("/login", handlers.Auth.Login)
 	api1.Get("/logout", handlers.Auth.Logout)
@@ -47,6 +40,17 @@ func Router(handlers *handlers.Handlers) {
 	api.Post("create", handlers.Account.CreateAccount)
 	api.Post("update", handlers.Account.UpdateAccount)
 	api.Post("delete", handlers.Account.DeleteAccount)
+
+	apiRedis := app.Group("/redis")
+	apiRedis.Post("/set", handlers.Redis.HandlersSet)
+	apiRedis.Post("/get", handlers.Redis.HandlersGet)
+	apiRedis.Post("/delete", handlers.Redis.HandlersDel)
+
+	apiMongo := app.Group("/mongo")
+	apiMongo.Post("insert", handlers.Mongo.HandlersInsert)
+	apiMongo.Post("update", handlers.Mongo.HandlersUpdate)
+	apiMongo.Post("delete", handlers.Mongo.HandlersDelete)
+	apiMongo.Post("find", handlers.Mongo.HandlersFind)
 
 	app.Listen(":3010")
 }
